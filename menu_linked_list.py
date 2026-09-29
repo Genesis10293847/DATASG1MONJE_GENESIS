@@ -1,9 +1,7 @@
-# Unit 3: Lists - Complete Singly Linked List (with head and tail)
-
 class Node:
     def __init__(self, data):
-        self.data = data      # 1. Data Field
-        self.next = None      # 2. Next Pointer
+        self.data = data
+        self.next = None
 
 
 class LinkedList:
@@ -18,12 +16,12 @@ class LinkedList:
     # ---------- Insertion ----------
     def insert_at_beginning(self, data):
         new_node = Node(data)
-        if self.head is None:            # empty list: head == tail
+        if self.head is None:
             self.head = new_node
             self.tail = new_node
             return
-        new_node.next = self.head        # 1. link new node to current head
-        self.head = new_node             # 2. move head to new node
+        new_node.next = self.head
+        self.head = new_node
 
     def insert_at_end(self, data):
         new_node = Node(data)
@@ -31,17 +29,17 @@ class LinkedList:
             self.head = new_node
             self.tail = new_node
         else:
-            self.tail.next = new_node    # 1. link current tail to new node
-            self.tail = new_node         # 2. move tail
+            self.tail.next = new_node
+            self.tail = new_node
 
     def insert_after(self, target, data):
         current = self.head
         while current is not None:
             if current.data == target:
                 new_node = Node(data)
-                new_node.next = current.next   # save the old connection first
-                current.next = new_node        # then relink
-                if current is self.tail:       # inserted after last node
+                new_node.next = current.next
+                current.next = new_node
+                if current is self.tail:
                     self.tail = new_node
                 return True
             current = current.next
@@ -52,14 +50,14 @@ class LinkedList:
         if self.head is None:
             return False
         self.head = self.head.next
-        if self.head is None:            # list became empty
+        if self.head is None:
             self.tail = None
         return True
 
     def delete_from_end(self):
         if self.head is None:
             return False
-        if self.head.next is None:       # only one node
+        if self.head.next is None:
             self.head = None
             self.tail = None
             return True
@@ -75,7 +73,7 @@ class LinkedList:
     def delete_value(self, value):
         if self.head is None:
             return False
-        if self.head.data == value:      # first node (also handles only node)
+        if self.head.data == value:
             return self.delete_from_beginning()
 
         previous = self.head
@@ -83,7 +81,7 @@ class LinkedList:
         while current is not None:
             if current.data == value:
                 previous.next = current.next
-                if current is self.tail:  # deleted the last node
+                if current is self.tail:
                     self.tail = previous
                 return True
             previous = current
@@ -179,14 +177,13 @@ def menu():
             else:
                 print(f"Element {old} was not found.\nNo update was performed.")
         elif choice == "9":
-            pass  # display happens below
+            pass
         elif choice == "0":
             print("Goodbye!")
             break
         else:
             print("Invalid choice. Try again.")
 
-        # Show the list after every action
         print("\nCurrent list: ", end="")
         ll.display()
         if ll.head:
